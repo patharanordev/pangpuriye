@@ -1,10 +1,22 @@
-# pangpuriye
+# **pangpuriye**
+
+Let's make AI easy.
+
+## **Functional**
+
+ - **OCR** - EasyOCR + Tesseract + Levenshtein
+## **Contributing**
+### **Installation**
 
 In console (terminal or cmd) :
 
 ```bash
 $ curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+```
 
+output:
+
+```bash
 Retrieving Poetry metadata
 
 # Welcome to Poetry!
@@ -62,7 +74,11 @@ Poetry version 1.1.4
 
 ```bash
 $ poetry init
+```
 
+output:
+
+```bash
 Python 2.7 will no longer be supported in the next feature release of Poetry (1.2).
 You should consider updating your Python version to a supported one.
 
@@ -251,4 +267,4 @@ Enjoy!!!
 
 ## **License**
 
-
+MIT
