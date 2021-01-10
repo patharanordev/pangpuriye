@@ -118,10 +118,35 @@ class OCR:
             month = speed_list[np.argmax(leven_list)]
         return month
     
-    def imshow(self, fpath):
-        img = mpimg.imread(fpath)
+    def imread(self, fpath):
+        return mpimg.imread(fpath)
+    
+    def imshow(self, img):
+        if isinstance(img, str):
+            img = mpimg.imread(img)
+            
         plt.imshow(img)
         plt.show()
+
+    def get_euler_distance(pt1, pt2):
+        return ((pt1[0] - pt2[0])**2 + (pt1[1] - pt2[1])**2)**0.5
+
+    def set_four_point_transform(coordinates):
+        '''
+        Set list of coordinate x,y. Example 
+        [[8, 136], [415, 52], [420, 152], [14, 244]]
+        '''
+        src_pts = np.array(coordinates, dtype=np.float32)
+
+        width = get_euler_distance(src_pts[0][0], src_pts[0][1])
+        height = get_euler_distance(src_pts[0][0], src_pts[0][3])
+
+        dst_pts = np.array([[0, 0],   [width, 0],  [width, height], [0, height]], dtype=np.float32)
+        return width, height, src_pts, dst_pts
+
+    def perspective_transform(self, width, height, src_pts, dst_pts):
+        M = cv.getPerspectiveTransform(src_pts, dst_pts)
+        warp = cv.warpPerspective(img, M, (width, height))
         
     def todo():
         # TODO:

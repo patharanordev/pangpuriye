@@ -2,7 +2,7 @@
 
 Let's make AI easy.
 
-## **Functional**
+## **Features**
 
  - **OCR** - EasyOCR + Tesseract + Levenshtein
 ## **Contributing**
