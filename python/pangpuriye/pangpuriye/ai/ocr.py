@@ -65,11 +65,11 @@ class OCR:
             
             box = cv.inRange(img_hsv, fromColorRange, toColorRange)
             thresh = cv.threshold(box, 0, 255, cv.THRESH_BINARY_INV + cv.THRESH_OTSU)[1]
-
+            
             # Morph open to remove noise
             kernel = cv.getStructuringElement(cv.MORPH_RECT, (2,2))
             opening = cv.morphologyEx(thresh, cv.MORPH_OPEN, kernel, iterations=1)
-
+            
             # Find contours and remove small noise
             cnts = cv.findContours(opening, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
             cnts = cnts[0] if len(cnts) == 2 else cnts[1]
@@ -77,22 +77,20 @@ class OCR:
                 area = cv.contourArea(c)
                 if area < 50:
                     cv.drawContours(opening, [c], -1, 0, -1)
-
+                    
             # Invert and apply slight Gaussian blur
             result = 255 - opening
             result = cv.GaussianBlur(result, (3,3), 0)
-        
-            cv.imwrite(img_path, result)
+            
+            # Crop bounding of the group of high pixel value
+            x, y, w, h = cv.boundingRect(result)
+            # Write pixel to image file
+            cv.imwrite(img_path, result[y:y+h, x:x+w])
+            
         except:
             img_path = None
             
         return img_path
-    
-    def cropping_rect_by_colours(self, image, mask):
-        contour, _ = cv.findContours(mask, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE)
-        area = max(contour, key=cv.contourArea)
-        x, y, w, h = cv.boundingRect(area)
-        return image[y:y+h, x:x+w]
     
     def set_easyocr_reader(self, reader):
         self.reader = reader
@@ -128,27 +126,37 @@ class OCR:
         plt.imshow(img)
         plt.show()
 
-    def get_euler_distance(pt1, pt2):
+    def get_euler_distance(self, pt1, pt2):
         return ((pt1[0] - pt2[0])**2 + (pt1[1] - pt2[1])**2)**0.5
 
-    def set_four_point_transform(coordinates):
+    def set_four_point_transform(self, coordinates):
         '''
         Set list of coordinate x,y. Example 
         [[8, 136], [415, 52], [420, 152], [14, 244]]
         '''
         src_pts = np.array(coordinates, dtype=np.float32)
 
-        width = get_euler_distance(src_pts[0][0], src_pts[0][1])
-        height = get_euler_distance(src_pts[0][0], src_pts[0][3])
+        width = self.get_euler_distance(src_pts[0][0], src_pts[0][1])
+        height = self.get_euler_distance(src_pts[0][0], src_pts[0][3])
 
         dst_pts = np.array([[0, 0],   [width, 0],  [width, height], [0, height]], dtype=np.float32)
         return width, height, src_pts, dst_pts
 
-    def perspective_transform(self, width, height, src_pts, dst_pts):
+    def perspective_transform(self, width, height, src_pts, dst_pts, verbose=True):
         M = cv.getPerspectiveTransform(src_pts, dst_pts)
         warp = cv.warpPerspective(img, M, (width, height))
         
+        if verbose:
+            plt.imshow(warp)
+            plt.title('Perspective Transform')
+            plt.show()
+        
+        return warp
+    
     def todo():
-        # TODO:
-        # - 4-point-perspective-transform (https://github.com/jrosebr1/imutils#4-point-perspective-transform)
+        # TODO: Increase more effiency
+        # - Yolo V5
+        # - Conner detection -> https://blog.ekbana.com/skew-correction-using-corner-detectors-and-homography-fda345e42e65#3d18
+        # - Perspective Transform
+        # - ...
         pass
