@@ -1,5 +1,5 @@
 import os
-import cv2 as cv
+import cv2
 import numpy as np
 import easyocr
 import Levenshtein
@@ -59,33 +59,33 @@ class OCR:
             os.mkdir(fpath)
         
         img_path = '{}/{}.png'.format(fpath, filename)
-        img_hsv = cv.cvtColor(img, cv.COLOR_BGR2HSV)
+        img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
         try:
             
-            box = cv.inRange(img_hsv, fromColorRange, toColorRange)
-            thresh = cv.threshold(box, 0, 255, cv.THRESH_BINARY_INV + cv.THRESH_OTSU)[1]
+            box = cv2.inRange(img_hsv, fromColorRange, toColorRange)
+            thresh = cv2.threshold(box, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
             
             # Morph open to remove noise
-            kernel = cv.getStructuringElement(cv.MORPH_RECT, (2,2))
-            opening = cv.morphologyEx(thresh, cv.MORPH_OPEN, kernel, iterations=1)
+            kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (2,2))
+            opening = cv2.morphologyEx(thresh, cv2.MORPH_OPEN, kernel, iterations=1)
             
             # Find contours and remove small noise
-            cnts = cv.findContours(opening, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+            cnts = cv2.findContours(opening, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             cnts = cnts[0] if len(cnts) == 2 else cnts[1]
             for c in cnts:
-                area = cv.contourArea(c)
+                area = cv2.contourArea(c)
                 if area < 50:
-                    cv.drawContours(opening, [c], -1, 0, -1)
+                    cv2.drawContours(opening, [c], -1, 0, -1)
                     
             # Invert and apply slight Gaussian blur
             result = 255 - opening
-            result = cv.GaussianBlur(result, (3,3), 0)
+            result = cv2.GaussianBlur(result, (3,3), 0)
             
             # Crop bounding of the group of high pixel value
-            x, y, w, h = cv.boundingRect(result)
+            x, y, w, h = cv2.boundingRect(result)
             # Write pixel to image file
-            cv.imwrite(img_path, result[y:y+h, x:x+w])
+            cv2.imwrite(img_path, result[y:y+h, x:x+w])
             
         except:
             img_path = None
@@ -143,8 +143,8 @@ class OCR:
         return width, height, src_pts, dst_pts
 
     def perspective_transform(self, width, height, src_pts, dst_pts, verbose=True):
-        M = cv.getPerspectiveTransform(src_pts, dst_pts)
-        warp = cv.warpPerspective(img, M, (width, height))
+        M = cv2.getPerspectiveTransform(src_pts, dst_pts)
+        warp = cv2.warpPerspective(img, M, (width, height))
         
         if verbose:
             plt.imshow(warp)

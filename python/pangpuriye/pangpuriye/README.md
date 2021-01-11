@@ -4,7 +4,7 @@ Let's make AI easy.
 
 ## **Features**
 
- - **OCR** - EasyOCR + Tesseract + Levenshtein, [example](https://github.com/patharanordev/pangpuriye/blob/main/python/pangpuriye/pangpuriye/example/ocr.ipynb).
+ - **OCR** - EasyOCR + Tesseract + Levenshtein, [example](https://github.com/patharanordev/pangpuriye/blob/main/python/pangpuriye/example/ocr.ipynb).
 
 ## **Requirements**
 
@@ -41,6 +41,29 @@ $ pip install pangpuriye
 ```
 
 Enjoy!!!
+
+## **Issues**
+
+- **python levenshtein issue on window** :
+
+    https://stackoverflow.com/questions/13200330/how-to-install-python-levenshtein-on-windows
+
+ - **poppler usage in MacOS version lower than 10.15** :
+
+    ```bash
+    Warning: You are using macOS 10.13.
+    We (and Apple) do not provide support for this old version.
+    You will encounter build failures with some formulae.
+    Please create pull requests instead of asking for help on Homebrew's GitHub,
+    Twitter or any other official channels. You are responsible for resolving
+    any issues you experience while you are running this
+    old version.
+
+    Error: poppler: no bottle available!
+    You can try to install from source with:
+
+    brew install --build-from-source poppler
+    ```
 
 ## **FAQ**
 
