@@ -18,6 +18,22 @@ Before start we require 2-main libraries below :
 
 ## **Usage**
 
+We requires library below in `pangpuriye.ai` package and our example code, you should install the library below first  :
+ - pdf2image
+ - python-Levenshtein
+ - easyocr
+ - opencv-python
+ - torchvision
+ - detecto
+ - matplotlib
+ - numpy
+
+Or
+
+```bash
+$ pip install pdf2image python-Levenshtein easyocr opencv-python torchvision detecto matplotlib numpy
+```
+
 After that let's install `pangpuriye` :
 
 ```bash
@@ -25,6 +41,13 @@ $ pip install pangpuriye
 ```
 
 Enjoy!!!
+
+## **FAQ**
+
+**Why not pack the required liraries above into this package?**
+
+Because of some libraries above rely on host's environment, example `pdf2image` requires `poppler` but you need to find `poppler` package that match with your host. So we did not pack the library above into our package.
+
 
 ## **License**
 

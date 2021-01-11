@@ -1,6 +1,8 @@
 # **pangpuriye in PyPi**
 
 ## **Contributing**
+
+For more detail in `poetry`, please refer to [here](https://github.com/python-poetry/poetry).
 ### **Installation**
 
 In console (terminal or cmd) :
