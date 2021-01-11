@@ -1,10 +1,5 @@
-# **pangpuriye**
+# **pangpuriye in PyPi**
 
-Let's make AI easy.
-
-## **Features**
-
- - **OCR** - EasyOCR + Tesseract + Levenshtein
 ## **Contributing**
 ### **Installation**
 
@@ -246,24 +241,6 @@ If it has any error, now you can publish it :
 ```bash
 $ poetry publish --username PYPI_USER_NAME --password PYPI_PASSWORD
 ```
-
-## **Testing**
-
-Before start the library requires 2-main libraries :
- - **poppler** - it used in `pdf2image`, [how-to-install](https://pypi.org/project/pdf2image/) in each OS.
- - **tesseract** - specially in MacOS, we need to install multi-language via `brew` command :
-  
-    ```bash
-    $ brew install tesseract-lang
-    ```
-
-After that let's install `pangpuriye` :
-
-```bash
-$ pip install pangpuriye
-```
-
-Enjoy!!!
 
 ## **License**
 
