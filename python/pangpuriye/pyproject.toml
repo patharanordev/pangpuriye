@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pangpuriye"
-version = "0.1.7"
+version = "0.1.8"
 description = "Let's make AI easy."
 readme = "pangpuriye/README.md"
 authors = ["Pathara Norasethasopon <patharanor@gmail.com>"]

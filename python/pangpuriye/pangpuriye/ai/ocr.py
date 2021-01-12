@@ -22,7 +22,7 @@ class OCR:
         # After it is done, you can read as many images as you want without running this line again.
         self.reader = easyocr.Reader(['th', 'en'], gpu=True)
 
-    def pdf2image(self, fpath):
+    def pdf2image(self, fpath, **kwargs):
         
         ispdf = False
         
@@ -30,14 +30,14 @@ class OCR:
             link_path = fpath.split('/')
             if link_path[-1].split('.')[-1].lower() == 'pdf':
                 fname = link_path[-1]
-                pages = convert_from_path(fpath)
+                pages = convert_from_path(pdf_path=fpath, **kwargs)
                 ispdf = True
             else:
                 fname = None
                 pages = None
         else:
             fname, fbytes = self.fh.get_byte(fpath)
-            pages = convert_from_bytes(fbytes, fmt='jpeg')
+            pages = convert_from_bytes(pdf_file=fbytes, fmt='jpeg', **kwargs)
             ispdf = True
         
         pdffile = []
