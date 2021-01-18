@@ -4,7 +4,7 @@ Let's make AI easy.
 
 ## **Features**
 
- - **OCR** - EasyOCR + Tesseract + Levenshtein, [example](https://github.com/patharanordev/pangpuriye/blob/main/python/pangpuriye/example).
+ - **OCR** - EasyOCR + Tesseract + Levenshtein, please refer to [example](https://github.com/patharanordev/pangpuriye/blob/main/python/pangpuriye/example) or [colab](https://colab.research.google.com/drive/1gDl-1yiHftuYva_eaPTuLzwCxYgInD2y?usp=sharing).
 
 ## **Requirements**
 
